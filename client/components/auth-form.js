@@ -14,6 +14,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import withStyles from '@material-ui/core/styles/withStyles'
+import {Link} from 'react-router-dom'
 
 const styles = theme => ({
   main: {
@@ -26,6 +27,10 @@ const styles = theme => ({
       marginLeft: 'auto',
       marginRight: 'auto'
     }
+  },
+  title: {
+    width: 'auto',
+    textAlign: 'center'
   },
   paper: {
     marginTop: theme.spacing.unit * 8,
@@ -53,6 +58,7 @@ const AuthForm = props => {
 
   return (
     <main className={classes.main}>
+      <h1 className={classes.title}>Revolution Portal</h1>
       <CssBaseline />
       <Paper className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -88,6 +94,16 @@ const AuthForm = props => {
           >
             Sign in
           </Button>
+          <Link to="/signup">
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign Up
+            </Button>
+          </Link>
         </form>
       </Paper>
     </main>
