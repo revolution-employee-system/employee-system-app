@@ -1,33 +1,45 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {auth} from '../../store'
 import AppBar from 'material-ui/AppBar'
 import {GridList, GridTile} from 'material-ui/GridList'
 import TextField from 'material-ui/TextField'
 import Button from '@material-ui/core/Button'
-
-export default class AccountInformation extends Component {
-  constructor() {
-    super()
+class AccountInformation extends Component {
+  constructor(props) {
+    super(props)
     this.state = {
       firstAndLastName: '',
       email: '',
       password: ''
     }
+    this.onNameChange = this.onNameChange.bind(this)
+    this.onEmailChange = this.onEmailChange.bind(this)
+    this.onPasswordChange = this.onPasswordChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   onNameChange = (evt, index, value) => {
-    this.setState({firstAndLastName: value})
+    evt.preventDefault()
+    this.setState({firstAndLastName: evt.target.value})
   }
 
   onEmailChange = (evt, index, value) => {
-    this.setState({email: value})
+    evt.preventDefault()
+    this.setState({email: evt.target.value})
   }
 
   onPasswordChange = (evt, index, value) => {
-    this.setState({password: value})
+    evt.preventDefault()
+    this.setState({password: evt.target.value})
   }
 
-  onSubmit = evt => {
+  handleSubmit = evt => {
     evt.preventDefault()
+    const name = this.state.firstAndLastName
+    const email = this.state.email
+    const password = this.state.password
+    const result = this.props.handleSubmit(email, password, 'signup', name)
   }
 
   render() {
@@ -56,7 +68,7 @@ export default class AccountInformation extends Component {
 
           <GridTile>
             <TextField
-              name="Password"
+              name="password"
               value={this.state.password}
               onChange={this.onPasswordChange}
               floatingLabelText="Password"
@@ -64,10 +76,18 @@ export default class AccountInformation extends Component {
           </GridTile>
 
           <GridTile>
-            <Button>Submit</Button>
+            <Button onClick={this.handleSubmit}>Submit</Button>
           </GridTile>
         </GridList>
       </div>
     )
   }
 }
+const mapDispatch = dispatch => {
+  return {
+    handleSubmit(email, password, method, name) {
+      dispatch(auth(email, password, method, name))
+    }
+  }
+}
+export default connect(null, mapDispatch)(AccountInformation)
