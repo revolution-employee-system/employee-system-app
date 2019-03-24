@@ -89,7 +89,7 @@ class AccountInformation extends Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onSubmit={() => this.handleSubmit()}
+              onSubmit={e => this.handleSubmit(e)}
             >
               Sign Up
             </Button>
