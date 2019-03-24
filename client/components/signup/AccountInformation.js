@@ -13,7 +13,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import withStyles from '@material-ui/core/styles/withStyles'
-
 class AccountInformation extends Component {
   constructor() {
     super()
@@ -23,23 +22,20 @@ class AccountInformation extends Component {
       password: ''
     }
   }
-
   dynamicChangeHandler = e => {
     this.setState({[e.target.name]: e.target.value})
     console.log(this.state)
   }
-
   handleSubmit = e => {
     e.preventDefault()
     const name = this.state.firstAndLastName
     const email = this.state.email
     const password = this.state.password
+    console.log('handle')
     const result = this.props.handleSubmit(email, password, 'signup', name)
   }
-
   render() {
     const {classes} = this.props
-
     return (
       <main className={classes.main}>
         <CssBaseline />
@@ -89,7 +85,7 @@ class AccountInformation extends Component {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onSubmit={e => this.handleSubmit(e)}
+              onClick={e => this.handleSubmit(e)}
             >
               Sign Up
             </Button>
@@ -99,16 +95,13 @@ class AccountInformation extends Component {
     )
   }
 }
-
 AccountInformation.propTypes = {
   classes: PropTypes.object.isRequired
 }
-
 const mapDispatch = dispatch => ({
   handleSubmit: (email, password, method, name) =>
     dispatch(auth(email, password, method, name))
 })
-
 export default connect(null, mapDispatch)(
   withStyles(styles)(AccountInformation)
 )
