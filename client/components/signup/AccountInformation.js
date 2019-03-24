@@ -1,41 +1,36 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {auth} from '../../store'
-import AppBar from 'material-ui/AppBar'
-import {GridList, GridTile} from 'material-ui/GridList'
-import TextField from 'material-ui/TextField'
+import styles from '../../styles/signup/signupStyles'
+import PropTypes from 'prop-types'
+import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import FormControl from '@material-ui/core/FormControl'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
+import withStyles from '@material-ui/core/styles/withStyles'
+
 class AccountInformation extends Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
       firstAndLastName: '',
       email: '',
       password: ''
     }
-    this.onNameChange = this.onNameChange.bind(this)
-    this.onEmailChange = this.onEmailChange.bind(this)
-    this.onPasswordChange = this.onPasswordChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  onNameChange = (evt, index, value) => {
-    evt.preventDefault()
-    this.setState({firstAndLastName: evt.target.value})
+  dynamicChangeHandler = e => {
+    this.setState({[e.target.name]: e.target.value})
+    console.log(this.state)
   }
 
-  onEmailChange = (evt, index, value) => {
-    evt.preventDefault()
-    this.setState({email: evt.target.value})
-  }
-
-  onPasswordChange = (evt, index, value) => {
-    evt.preventDefault()
-    this.setState({password: evt.target.value})
-  }
-
-  handleSubmit = evt => {
-    evt.preventDefault()
+  handleSubmit = e => {
+    e.preventDefault()
     const name = this.state.firstAndLastName
     const email = this.state.email
     const password = this.state.password
@@ -43,51 +38,76 @@ class AccountInformation extends Component {
   }
 
   render() {
+    const {classes} = this.props
+
     return (
-      <div>
-        <AppBar title="Admin" />
-
-        <GridList cols={1} cellHeight="auto">
-          <GridTile>
-            <TextField
-              name="firstAndLastName"
-              value={this.state.firstAndLastName}
-              onChange={this.onNameChange}
-              floatingLabelText="First and Last Name"
-            />
-          </GridTile>
-
-          <GridTile>
-            <TextField
-              name="email"
-              value={this.state.email}
-              onChange={this.onEmailChange}
-              floatingLabelText="Email"
-            />
-          </GridTile>
-
-          <GridTile>
-            <TextField
-              name="password"
-              value={this.state.password}
-              onChange={this.onPasswordChange}
-              floatingLabelText="Password"
-            />
-          </GridTile>
-
-          <GridTile>
-            <Button onClick={this.handleSubmit}>Submit</Button>
-          </GridTile>
-        </GridList>
-      </div>
+      <main className={classes.main}>
+        <CssBaseline />
+        <Paper className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign Up / Account Register
+          </Typography>
+          <form className={classes.form}>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="firstAndLastName">
+                First and Last Name
+              </InputLabel>
+              <Input
+                id="firstAndLastName"
+                name="firstAndLastName"
+                autoComplete="firstAndLastName"
+                autoFocus
+                onChange={e => this.dynamicChangeHandler(e)}
+              />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="email">Email Address</InputLabel>
+              <Input
+                id="email"
+                name="email"
+                autoComplete="email"
+                autoFocus
+                onChange={e => this.dynamicChangeHandler(e)}
+              />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input
+                name="password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                onChange={e => this.dynamicChangeHandler(e)}
+              />
+            </FormControl>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign Up
+            </Button>
+          </form>
+        </Paper>
+      </main>
     )
   }
 }
-const mapDispatch = dispatch => {
-  return {
-    handleSubmit(email, password, method, name) {
-      dispatch(auth(email, password, method, name))
-    }
-  }
+
+AccountInformation.propTypes = {
+  classes: PropTypes.object.isRequired
 }
-export default connect(null, mapDispatch)(AccountInformation)
+
+const mapDispatch = dispatch => ({
+  handleSubmit: (email, password, method, name) =>
+    dispatch(auth(email, password, method, name))
+})
+
+export default connect(null, mapDispatch)(
+  withStyles(styles)(AccountInformation)
+)
