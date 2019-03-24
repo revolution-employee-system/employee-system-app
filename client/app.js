@@ -2,16 +2,21 @@ import React from 'react'
 import {Navbar} from './components'
 import Routes from './routes'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import {connect} from 'react-redux'
 
-const App = () => {
+const App = props => {
   return (
     <MuiThemeProvider>
       <div>
-        <Navbar />
+        {props.isLoggedIn ? null : <Navbar />}
         <Routes />
       </div>
     </MuiThemeProvider>
   )
 }
 
-export default App
+const mapStateToProps = state => ({
+  isLoggedIn: state.user.id
+})
+
+export default connect(mapStateToProps)(App)
