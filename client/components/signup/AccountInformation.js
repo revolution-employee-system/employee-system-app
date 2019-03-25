@@ -24,14 +24,12 @@ class AccountInformation extends Component {
   }
   dynamicChangeHandler = e => {
     this.setState({[e.target.name]: e.target.value})
-    console.log(this.state)
   }
   handleSubmit = e => {
     e.preventDefault()
     const name = this.state.firstAndLastName
     const email = this.state.email
     const password = this.state.password
-    console.log('handle')
     const result = this.props.handleSubmit(email, password, 'signup', name)
   }
   render() {
