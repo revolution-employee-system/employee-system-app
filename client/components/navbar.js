@@ -17,16 +17,12 @@ const Navbar = ({handleClick, isLoggedIn, classes}) => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Menu"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" color="inherit" className={classes.grow}>
             Revolution
           </Typography>
+          <Button color="inherit" component={Link} to="/home">
+            Home
+          </Button>
           {!isLoggedIn ? (
             <div>
               <Button color="inherit" component={Link} to="/login">
