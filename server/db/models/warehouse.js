@@ -6,16 +6,22 @@ const Warehouse = db.define('warehouse', {
     type: Sequelize.BOOLEAN
   },
   receivedOnTime: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.ENUM({
+      values: ['yes', 'no']
+    })
   },
   returned: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.ENUM({
+      values: ['yes', 'no']
+    })
   },
   accuratePullList: {
     type: Sequelize.INTEGER
   },
   finishedOnTime: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.ENUM({
+      values: ['yes', 'no']
+    })
   },
   makeUpRuns: {
     type: Sequelize.ENUM({
