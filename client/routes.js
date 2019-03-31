@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, Warehouse} from './components'
 import {me} from './store'
 
-import AccountInformation from './components/screens/AccountInformation'
+import AccountInformation from './components/containers/AccountInformation'
 
 /**
  * COMPONENT

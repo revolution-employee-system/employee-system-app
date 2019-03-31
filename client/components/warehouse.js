@@ -31,18 +31,18 @@ export default class Warehouse extends Component {
     return (
       <div>
         <h1>Warehouse</h1>
-        <form>
-          <input type="text" />
-          <div className="toggleContainer">
-            <ToggleButtonGroup
+        {/* <form>
+          <input type="text" /> */}
+        {/* <div className="toggleContainer"> */}
+        {/* <ToggleButtonGroup
               value={receivedOnTime}
               exclusive
               onChange={this.handleChange}
             />
             <ToggleButton value="yes">Yes</ToggleButton>
-            <ToggleButton value="no">No</ToggleButton>
-          </div>
-        </form>
+            <ToggleButton value="no">No</ToggleButton> */}
+        {/* </div>
+        </form> */}
       </div>
     )
   }
